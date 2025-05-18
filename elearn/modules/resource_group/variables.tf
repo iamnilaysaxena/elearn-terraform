@@ -4,3 +4,8 @@ variable "resource_groups" {
   }))
   description = "Resource Groups"
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags"
+}
