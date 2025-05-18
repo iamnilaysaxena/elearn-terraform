@@ -1,3 +1,7 @@
-output "rg_ids" {
-  value = module.resource_group.rg_ids
+output "op_resource_groups" {
+  value = module.resource_group.op_resource_groups
+}
+
+output "op_networks" {
+  value = module.network.op_networks
 }
