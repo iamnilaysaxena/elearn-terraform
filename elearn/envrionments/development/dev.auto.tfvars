@@ -33,10 +33,12 @@ vms = {
     subnet_name          = "web"
     size                 = "Standard_B1s"
     is_public_ip_needed  = true
+    custom_data          = "../../../scripts/nginx.sh"
+    public_key           = "../../../keys/vm.pub"
   }
-  backend-vm = {
-    virtual_network_name = "vnet1"
-    subnet_name          = "backend"
-    size                 = "Standard_B1s"
-  }
+  # backend-vm = {
+  #   virtual_network_name = "vnet1"
+  #   subnet_name          = "backend"
+  #   size                 = "Standard_B1s"
+  # }
 }

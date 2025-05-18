@@ -11,5 +11,12 @@ output "subnet_ids" {
 }
 
 output "nic_ids" {
-  value = { for nic, value in module.nics : nic => value.id }
+  value = { for nic, value in module.nics : nic => {
+    id  = value.id
+    pip = value.pip
+  } }
+}
+
+output "vm_ids" {
+  value = { for vm, value in module.vms : vm => value.id }
 }

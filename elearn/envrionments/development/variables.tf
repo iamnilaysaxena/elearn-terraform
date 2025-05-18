@@ -15,6 +15,8 @@ variable "vms" {
     subnet_name          = string
     size                 = string
     is_public_ip_needed  = optional(bool, false)
+    custom_data          = optional(string)
+    public_key           = string
   }))
 }
 
