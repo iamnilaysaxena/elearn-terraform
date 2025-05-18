@@ -6,7 +6,10 @@ output "vnet_ids" {
   value = { for vnet, value in module.virtual_networks : vnet => value.id }
 }
 
-
 output "subnet_ids" {
   value = { for subnet, value in module.subnets : subnet => value.id }
+}
+
+output "nic_ids" {
+  value = { for nic, value in module.nics : nic => value.id }
 }
