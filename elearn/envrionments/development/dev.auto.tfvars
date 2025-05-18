@@ -5,7 +5,7 @@ tags = {
 
 resource_groups = {
   rg-rudra-elearn = {
-    location = "Central India"
+    location = "East US"
   }
 }
 
