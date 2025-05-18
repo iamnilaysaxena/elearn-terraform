@@ -38,3 +38,14 @@ module "subnets" {
   address_prefixes     = each.value.address_prefix
   virtual_network_name = module.virtual_networks[each.value.vnet].name
 }
+
+module "nics" {
+  for_each            = var.vms
+  source              = "../../modules/azurerm_network_interface"
+  name                = each.key
+  resource_group_name = local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name
+  location            = var.resource_groups[local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name].location
+  is_public_ip_needed = each.value.is_public_ip_needed
+  subnet_id           = module.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].id
+  tags                = var.tags
+}
