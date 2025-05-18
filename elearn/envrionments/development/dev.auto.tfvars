@@ -26,3 +26,17 @@ networks = {
     }
   }
 }
+
+vms = {
+  web-vm = {
+    virtual_network_name = "vnet1"
+    subnet_name          = "web"
+    size                 = "Standard_B1s"
+    is_public_ip_needed  = true
+  }
+  backend-vm = {
+    virtual_network_name = "vnet1"
+    subnet_name          = "backend"
+    size                 = "Standard_B1s"
+  }
+}

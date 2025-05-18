@@ -5,3 +5,8 @@ output "op_resource_groups" {
 output "op_networks" {
   value = module.network.op_networks
 }
+
+
+# output "op_vms" {
+#   value = module.network.op_vms
+# }

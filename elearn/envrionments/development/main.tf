@@ -14,3 +14,12 @@ module "network" {
   tags            = var.tags
   resource_groups = var.resource_groups
 }
+
+module "virtual_machine" {
+  source          = "../../modules/virtual_machine"
+  vms             = var.vms
+  tags            = var.tags
+  networks        = var.networks
+  network_ids     = module.network.op_networks
+  resource_groups = var.resource_groups
+}

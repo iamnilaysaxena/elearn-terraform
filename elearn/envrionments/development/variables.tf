@@ -3,3 +3,4 @@ variable "tags" {
 }
 variable "resource_groups" {}
 variable "networks" {}
+variable "vms" {}
