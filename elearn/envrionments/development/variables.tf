@@ -2,5 +2,5 @@ variable "tags" {
   default = {}
 }
 variable "resource_groups" {}
-variable "networks" {}
+variable "virtual_networks" {}
 variable "vms" {}
