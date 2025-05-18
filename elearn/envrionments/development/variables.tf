@@ -1,6 +1,5 @@
-
-variable "resource_groups" {}
 variable "tags" {
   default = {}
 }
+variable "resource_groups" {}
 variable "networks" {}

@@ -2,7 +2,9 @@ variable "networks" {
   type = map(object({
     resource_group_name = string
     address_space       = string
-    subnets             = optional(list(string))
+    subnets = map(object({
+      address_prefix = string
+    }))
   }))
   description = "Resource Groups"
 }
