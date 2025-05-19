@@ -49,6 +49,16 @@ module "pips" {
   tags                = var.tags
 }
 
+module "nsgs" {
+  for_each            = var.vms
+  source              = "../../modules/azurerm_network_security_group"
+  name                = each.key
+  resource_group_name = module.resource_groups[local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name].name
+  location            = module.resource_groups[local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name].location
+  tags                = var.tags
+  inbound_ports       = each.value.inbound_ports
+}
+
 module "nics" {
   for_each             = var.vms
   source               = "../../modules/azurerm_network_interface"
@@ -59,6 +69,14 @@ module "nics" {
   public_ip_address_id = module.pips[each.key].id
   tags                 = var.tags
 }
+
+module "nsg_nics" {
+  for_each = var.vms
+  source   = "../../modules/azurerm_network_interface_security_group_association"
+  nic_id   = module.nics[each.key].id
+  nsg_id   = module.nsgs[each.key].id
+}
+
 
 module "vms" {
   for_each            = var.vms

@@ -14,6 +14,11 @@ output "pip_ips" {
   value = { for pip, value in module.pips : pip => value.pip }
 }
 
+output "nsg_ids" {
+  value = { for nsg, value in module.nsgs : nsg => value.id }
+}
+
+
 output "private_ips" {
   value = { for nic, value in module.nics : nic => value.privateip }
 }

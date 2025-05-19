@@ -35,6 +35,7 @@ vms = {
     is_public_ip_needed  = true
     custom_data          = "../../../scripts/nginx.sh"
     public_key           = "../../../keys/vm.pub"
+    inbound_ports        = [80, 443]
   }
   # backend-vm = {
   #   virtual_network_name = "vnet1"

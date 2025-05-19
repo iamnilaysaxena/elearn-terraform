@@ -17,6 +17,7 @@ variable "vms" {
     is_public_ip_needed  = optional(bool, false)
     custom_data          = optional(string)
     public_key           = string
+    inbound_ports        = optional(list(string))
   }))
 }
 
