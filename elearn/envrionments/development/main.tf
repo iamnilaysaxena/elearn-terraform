@@ -68,7 +68,7 @@ module "vms" {
   location            = module.resource_groups[local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name].location
   size                = each.value.size
   public_key          = file(each.value.public_key)
-  custom_data         = each.value.custom_data == null ? file(each.value.custom_data) : null
+  custom_data         = each.value.custom_data != null ? base64encode(file(each.value.custom_data)) : null
   nic_id              = module.nics[each.key].id
   tags                = var.tags
 }
