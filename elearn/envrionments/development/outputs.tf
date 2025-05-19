@@ -10,11 +10,16 @@ output "subnet_ids" {
   value = { for subnet, value in module.subnets : subnet => value.id }
 }
 
+output "pip_ips" {
+  value = { for pip, value in module.pips : pip => value.pip }
+}
+
+output "private_ips" {
+  value = { for nic, value in module.nics : nic => value.privateip }
+}
+
 output "nic_ids" {
-  value = { for nic, value in module.nics : nic => {
-    id  = value.id
-    pip = value.pip
-  } }
+  value = { for nic, value in module.nics : nic => value.id }
 }
 
 output "vm_ids" {

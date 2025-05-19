@@ -15,10 +15,6 @@ variable "resource_group_name" {
   type = string
 }
 
-variable "subnet_id" {
-  type = string
-}
-
-variable "public_ip_address_id" {
-  type = string
+variable "is_public_ip_needed" {
+  type = bool
 }

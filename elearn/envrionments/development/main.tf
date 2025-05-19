@@ -39,23 +39,33 @@ module "subnets" {
   virtual_network_name = module.virtual_networks[each.value.vnet].name
 }
 
-module "nics" {
+module "pips" {
   for_each            = var.vms
-  source              = "../../modules/azurerm_network_interface"
+  source              = "../../modules/azurerm_public_ip"
   name                = each.key
-  resource_group_name = local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name
-  location            = var.resource_groups[local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name].location
+  resource_group_name = module.resource_groups[local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name].name
+  location            = module.resource_groups[local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name].location
   is_public_ip_needed = each.value.is_public_ip_needed
-  subnet_id           = module.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].id
   tags                = var.tags
+}
+
+module "nics" {
+  for_each             = var.vms
+  source               = "../../modules/azurerm_network_interface"
+  name                 = each.key
+  resource_group_name  = module.resource_groups[local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name].name
+  location             = module.resource_groups[local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name].location
+  subnet_id            = module.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].id
+  public_ip_address_id = module.pips[each.key].id
+  tags                 = var.tags
 }
 
 module "vms" {
   for_each            = var.vms
   source              = "../../modules/azurerm_linux_virtual_machine"
   name                = each.key
-  resource_group_name = local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name
-  location            = var.resource_groups[local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name].location
+  resource_group_name = module.resource_groups[local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name].name
+  location            = module.resource_groups[local.subnets["${each.value.virtual_network_name}-${each.value.subnet_name}"].resource_group_name].location
   size                = each.value.size
   public_key          = file(each.value.public_key)
   custom_data         = each.value.custom_data == null ? file(each.value.custom_data) : null
