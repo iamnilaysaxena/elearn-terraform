@@ -43,3 +43,10 @@ vms = {
   #   size                 = "Standard_B1s"
   # }
 }
+
+storage_accounts = {
+  sa6060 = {
+    resource_group_name      = "rg-rudra-elearn"
+    account_replication_type = "LRS"
+  }
+}

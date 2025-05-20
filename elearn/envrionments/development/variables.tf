@@ -32,3 +32,10 @@ variable "virtual_networks" {
   description = "Resource Groups"
 }
 
+variable "storage_accounts" {
+  type = map(object({
+    resource_group_name      = string
+    account_replication_type = string
+  }))
+}
+

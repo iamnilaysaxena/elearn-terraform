@@ -18,7 +18,6 @@ output "nsg_ids" {
   value = { for nsg, value in module.nsgs : nsg => value.id }
 }
 
-
 output "private_ips" {
   value = { for nic, value in module.nics : nic => value.privateip }
 }
@@ -29,4 +28,8 @@ output "nic_ids" {
 
 output "vm_ids" {
   value = { for vm, value in module.vms : vm => value.id }
+}
+
+output "sa_ids" {
+  value = { for sa, value in module.storage_accounts : sa => value.id }
 }

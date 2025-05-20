@@ -90,3 +90,13 @@ module "vms" {
   nic_id              = module.nics[each.key].id
   tags                = var.tags
 }
+
+module "storage_accounts" {
+  for_each                 = var.storage_accounts
+  source                   = "../../modules/azurerm_storage_account"
+  name                     = each.key
+  resource_group_name      = module.resource_groups[each.value.resource_group_name].name
+  location                 = module.resource_groups[each.value.resource_group_name].location
+  account_replication_type = each.value.account_replication_type
+  tags                     = var.tags
+}
